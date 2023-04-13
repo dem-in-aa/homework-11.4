@@ -63,12 +63,12 @@ rabbitmqctl add_user admin password
 ```
 rabbitmqctl set_user_tags admin administrator
 ```
-11) Затем установить правильное разрешение с помощью следующей команды:
+11) Установить правильное разрешение с помощью следующей команды:
 
 ```
 rabbitmqctl set_permissions -p / admin ".*" ".*" ".*"
 ```
-12) Затем включите консоль управления RabbitMQ с помощью следующей команды:
+12) Включить консоль управления RabbitMQ с помощью следующей команды:
 
 ```
 rabbitmq-plugins enable rabbitmq_management
