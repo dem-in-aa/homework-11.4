@@ -78,7 +78,11 @@ hostnamectl set-hostname rabbit-node-2
 Далее на VM2 перезагружаем сервер rabbitmq и останавливаем службу для подключения к кластеру на базе VM1:
 ```
 systemctl restart rabbitmq-server
+```
+```
 rabbitmqctl stop_app
+```
+```
 rabbitmqctl join_cluster rabbit@rabbit-node-1
 ```
 
