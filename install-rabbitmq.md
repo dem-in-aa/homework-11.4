@@ -1,4 +1,4 @@
-#Сначала установите все необходимые зависимости с помощью следующей команды:
+Сначала установите все необходимые зависимости с помощью следующей команды:
 
 ```
 apt-get install gnupg2 curl wget apt-transport-https software-properties-common -y
@@ -6,8 +6,11 @@ apt-get install gnupg2 curl wget apt-transport-https software-properties-common 
 
 После установки всех зависимостей загрузите и установите пакет репозитория Erlang с помощью следующей команды:
 
+```
 wget https://packages.erlang-solutions.com/erlang/debian/pool/esl-erlang_23.1.5-1~debian~stretch_amd64.deb
+
 dpkg -i esl-erlang_23.1.5-1~debian~stretch_amd64.deb
+```
 Вы получите некоторые ошибки зависимости. Вы можете исправить их, выполнив следующую команду:
 
 apt-get install -f
