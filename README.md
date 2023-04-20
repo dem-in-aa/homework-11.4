@@ -110,6 +110,7 @@ rabbitmqctl join_cluster rabbit@rabbit-node-1
 rabbitmqctl start_app
 ```
 Создаем политику ha-all:
+
 ```
 rabbitmqctl set_policy ha-all "" '{"ha-mode":"all","ha-sync-mode":"automatic"}'
 ```
