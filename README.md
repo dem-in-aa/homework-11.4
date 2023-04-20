@@ -125,13 +125,6 @@ rabbitmqctl set_policy ha-all "" '{"ha-mode":"all","ha-sync-mode":"automatic"}'
 
 ![](img/3-5.png)
 
-После создания кластера вход с прежней учетной записью администратора в веб-панели невозможен, и нужно заново создать пользователя и настроить его на ноде 1:
-```
-rabbitmqctl add_user demin password
-```
-```
-rabbitmqctl set_user_tags demin administrator
-```
 ![](img/3-6.png)
 ---
 ![](img/3-8.png)
