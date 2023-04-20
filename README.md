@@ -24,7 +24,7 @@
 Также в скриптах нужно указать IP-адрес машины, на которой запущен RabbitMQ, заменив localhost на нужный IP.
 
 ```shell script
-$ pip install pika
+pip install pika
 ```
 
 Зайдите в веб-интерфейс, найдите очередь под названием hello и сделайте скриншот.
@@ -51,7 +51,7 @@ $ pip install pika
 
 Пример содержимого hosts файла:
 ```shell script
-$ cat /etc/hosts
+cat /etc/hosts
 192.168.0.10 rmq01
 192.168.0.11 rmq02
 ```
@@ -64,13 +64,13 @@ $ cat /etc/hosts
 Также приложите вывод команды с двух нод:
 
 ```shell script
-$ rabbitmqctl cluster_status
+rabbitmqctl cluster_status
 ```
 
 Для закрепления материала снова запустите скрипт producer.py и приложите скриншот выполнения команды на каждой из нод:
 
 ```shell script
-$ rabbitmqadmin get queue='hello'
+rabbitmqadmin get queue='hello'
 ```
 
 После чего попробуйте отключить одну из нод, желательно ту, к которой подключались из скрипта, затем поправьте параметры подключения в скрипте consumer.py на вторую ноду и запустите его.
@@ -132,6 +132,38 @@ rabbitmqctl set_policy ha-all "" '{"ha-mode":"all","ha-sync-mode":"automatic"}'
 ![](img/3-9.png)
 ---
 ![](img/3-10.png)
+
+Запуск скрипта producer.py и выполнения команды: 
+
+```shell script
+rabbitmqadmin get queue='hello'
+```
+
+на ноде 1:
+
+на ноде 2:
+
+Отключение первой ноды  и выполнение скрипта consumer.py на вторую ноду:
+
+Содержание скрипта consumer.py :
+
+```
+#!/usr/bin/env python
+# coding=utf-8
+import pika
+
+credentials = pika.PlainCredentials('demin','password')
+parameters = pika.ConnectionParameters('192.168.0.17',5672,'/',credentials)
+connection = pika.BlockingConnection(parameters)
+channel = connection.channel()
+channel.queue_declare(queue='hello')
+
+def callback(ch, method, properties, body):
+    print(" [x] Received %r" % body)
+
+channel.basic_consume (queue='hello', on_message_callback=callback, auto_ack=True)
+channel.start_consuming()
+```
 
 ## Дополнительные задания (со звёздочкой*)
 Эти задания дополнительные, то есть не обязательные к выполнению, и никак не повлияют на получение вами зачёта по этому домашнему заданию. Вы можете их выполнить, если хотите глубже шире разобраться в материале.
