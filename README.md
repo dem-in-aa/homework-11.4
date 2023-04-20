@@ -50,6 +50,7 @@ pip install pika
 Добавьте в файл hosts название и IP-адрес каждой машины, чтобы машины могли видеть друг друга по имени.
 
 Пример содержимого hosts файла:
+
 ```shell script
 cat /etc/hosts
 192.168.0.10 rmq01
@@ -80,6 +81,7 @@ rabbitmqadmin get queue='hello'
 <ins>Ответ</ins>:
 
 Вторая машина создана путем клонирования в VirtualBox c уже установленным  rabbitmq. На VM1 и VM2 для смены имени хоста выполняем команду:
+
 ```
 hostnamectl set-hostname rabbit-node-1
 ```
@@ -93,6 +95,7 @@ hostnamectl set-hostname rabbit-node-2
 ![](img/3-2.png)
 
 Далее на VM2 перезагружаем сервер rabbitmq и останавливаем службу для подключения к кластеру на базе VM1:
+
 ```
 systemctl restart rabbitmq-server
 ```
@@ -141,9 +144,23 @@ rabbitmqadmin get queue='hello'
 
 на ноде 1:
 
+![](img/3-11.png)
+
 на ноде 2:
 
+![](img/3-12.png)
+
+Состояние нод кластера:
+
+![](img/3-13.png)
+
 Отключение первой ноды  и выполнение скрипта consumer.py на вторую ноду:
+
+![](img/3-14.png)
+
+Состояние нод кластера:
+
+![](img/3-16.png)
 
 Содержание скрипта consumer.py :
 
@@ -164,6 +181,8 @@ def callback(ch, method, properties, body):
 channel.basic_consume (queue='hello', on_message_callback=callback, auto_ack=True)
 channel.start_consuming()
 ```
+![](img/3-15.png)
+
 
 ## Дополнительные задания (со звёздочкой*)
 Эти задания дополнительные, то есть не обязательные к выполнению, и никак не повлияют на получение вами зачёта по этому домашнему заданию. Вы можете их выполнить, если хотите глубже шире разобраться в материале.
